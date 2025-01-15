@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import * as React from "react";
 
@@ -15,9 +13,13 @@ import { cn } from "@/lib/utils";
 import { SearchDialog } from "../../shared/search-dialog/search-dialog";
 import { Sidebar } from "../../shared/sidebar/sidebar";
 import { Button } from "@/components/ui/button";
-import { navbarItems } from "@/db/navbar";
+import { NavBarProps } from "@/components/helpers/interfaces/navbar";
+// import { products } from "@/data/products";
 
-export function NavBar() {
+export default async function NavBar() {
+  const response = await fetch(`${process.env.API_HOST}/products`);
+  const products = await response.json();
+
   return (
     <div className="border-b py-4">
       <div className="container flex items-center justify-between ">
@@ -60,8 +62,8 @@ export function NavBar() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {navbarItems.map((navItem, index) => (
-                <NavigationMenuItem key={index}>
+              {products.map((navItem: NavBarProps) => (
+                <NavigationMenuItem key={navItem.id}>
                   <NavigationMenuTrigger>{navItem.name}</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
