@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,13 +16,23 @@ import { HiOutlineCube } from "react-icons/hi";
 import { GoArrowRight } from "react-icons/go";
 import { ProductCard } from "@/components/shared/product-card/product-card";
 import { ProductProps } from "@/components/helpers/interfaces/products";
+import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 
-export default async function Main() {
-  const response = await fetch(`${process.env.API_HOST}/items`);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch products: ${response.statusText}`);
-  }
-  const items = await response.json();
+export default function Main() {
+  const {
+    data: items,
+    error,
+    isLoading,
+  } = useSWR(`${process.env.NEXT_PUBLIC_API_HOST}/items`, fetcher);
+  console.log(items);
+  console.log(error);
+  console.log(isLoading);
+  // const response = await fetch(`${process.env.API_HOST}/items`);
+  // if (!response.ok) {
+  //   throw new Error(`Failed to fetch products: ${response.statusText}`);
+  // }
+  // const items = await response.json();
 
   return (
     <main className="container">
@@ -103,7 +114,7 @@ export default async function Main() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-          {items.map((product: ProductProps) => (
+          {items?.map((product: ProductProps) => (
             <Link key={product.id} href={product.path}>
               <ProductCard key={product.id} product={product} />
             </Link>
