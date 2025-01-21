@@ -3,9 +3,9 @@ import Link from "next/link";
 import { RxRocket } from "react-icons/rx";
 
 interface Props {
-  params: {
+  params: Promise<{
     category: string;
-  };
+  }>;
 }
 
 export default async function Categories({ params }: Props) {

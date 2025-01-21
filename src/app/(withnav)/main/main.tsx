@@ -18,6 +18,9 @@ import { ProductProps } from "@/components/helpers/interfaces/products";
 
 export default async function Main() {
   const response = await fetch(`${process.env.API_HOST}/items`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch products: ${response.statusText}`);
+  }
   const items = await response.json();
 
   return (

@@ -18,6 +18,9 @@ import { NavBarProps } from "@/components/helpers/interfaces/navbar";
 
 export default async function NavBar() {
   const response = await fetch(`${process.env.API_HOST}/products`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch products: ${response.statusText}`);
+  }
   const products = await response.json();
 
   return (

@@ -2,6 +2,7 @@ export const products = [
     {
       id: 1,
       name: "Skateboards",
+      category: "skateboards",
       description: "The best skateboards for all levels of skaters.",
       items: [
         {
@@ -57,6 +58,7 @@ export const products = [
     {
       id: 2,
       name: "Clothing",
+      category: "clothing",
       description: "Stylish and comfortable skateboarding clothing.",
       items: [
         {
@@ -100,6 +102,7 @@ export const products = [
     {
       id: 3,
       name: "Shoes",
+      category: "shoes",
       description: "Rad shoes for long skate sessions.",
       items: [
         {
@@ -143,6 +146,7 @@ export const products = [
     {
       id: 4,
       name: "Accessories",
+      category: "accessories",
       description: "The essential skateboarding accessories to keep you rolling.",
       items: [
         {

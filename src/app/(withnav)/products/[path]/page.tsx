@@ -6,31 +6,37 @@ import { Button } from "@/components/ui/button";
 import { Heart, Star } from "lucide-react";
 
 interface ItemProps {
-  params: {
+  params: Promise<{
     path: string;
-  };
+  }>;
 }
 
 export default async function ProductCategory({ params }: ItemProps) {
   const { path } = await params;
 
   const response = await fetch(`${process.env.API_HOST}/items`);
-  const items = await response.json();
 
-  const itemArr = items.flatMap((item: ProductProps) => {
+  if (!response.ok) {
+    throw new Error(`Failed to fetch products: ${response.statusText}`);
+  }
+  
+  const items: ProductProps[] = await response.json();
+
+  const itemArr = items.flatMap((item) => {
     return item;
   });
 
-  const product = itemArr.find(
-    (item: ProductProps) => item.path === `/products/${path}`
-  );
+  const product = itemArr.find((item) => item.path === `/products/${path}`);
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
         <div className="aspect-square relative bg-zinc-900 rounded-lg">
           <Image
-            src={product?.imageUrl}
+            src={
+              product?.imageUrl ||
+              "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
+            }
             alt="Electronic Fresh Keyboard"
             fill
             className="object-cover rounded-lg"
