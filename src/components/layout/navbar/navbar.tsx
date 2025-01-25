@@ -13,7 +13,8 @@ import { cn } from "@/lib/utils";
 import { SearchDialog } from "../../shared/search-dialog/search-dialog";
 import { Sidebar } from "../../shared/sidebar/sidebar";
 import { Button } from "@/components/ui/button";
-import { NavBarProps } from "@/components/helpers/interfaces/navbar";
+import { NavBarProps } from "../../../helpers/interfaces/navbar";
+import NavMenuItem from "@/components/shared/nav-item";
 // import { products } from "@/data/products";
 
 export default async function NavBar() {
@@ -66,22 +67,7 @@ export default async function NavBar() {
               </NavigationMenuItem>
 
               {products.map((navItem: NavBarProps) => (
-                <NavigationMenuItem key={navItem.id}>
-                  <NavigationMenuTrigger>{navItem.name}</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                      {navItem.items.map((component) => (
-                        <ListItem
-                          key={component.title}
-                          title={component.title}
-                          href={component.href}
-                        >
-                          {component.description}
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+                <NavMenuItem key={navItem.id} item={navItem} />
               ))}
             </NavigationMenuList>
           </NavigationMenu>

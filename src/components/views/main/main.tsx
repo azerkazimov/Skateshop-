@@ -14,7 +14,7 @@ import { Github } from "lucide-react";
 import { HiOutlineCube } from "react-icons/hi";
 import { GoArrowRight } from "react-icons/go";
 import { ProductCard } from "@/components/shared/product-card/product-card";
-import { ProductProps } from "@/components/helpers/interfaces/products";
+import { ProductProps } from "../../../helpers/interfaces/products";
 
 export default async function Main() {
   const response = await fetch(`${process.env.API_HOST}/items`);

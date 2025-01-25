@@ -1,4 +1,4 @@
-import { NavBarProps } from "@/components/helpers/interfaces/navbar";
+import { NavBarProps } from "../../../../../helpers/interfaces/navbar";
 // import { products } from "@/data/navbar";
 
 interface PageProps {

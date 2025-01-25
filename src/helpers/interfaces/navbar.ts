@@ -4,4 +4,5 @@ export interface NavBarProps {
     category: string;
     description: string;
     items: { id: number; title: string; href: string; description: string }[];
+
 }

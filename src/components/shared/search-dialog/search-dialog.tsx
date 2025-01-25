@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Calculator, Calendar, CreditCard, Settings, Smile, User } from 'lucide-react'
-import { IoSearchOutline } from "react-icons/io5"
+import * as React from "react";
+import {
+  Calculator,
+  Calendar,
+  CreditCard,
+  Settings,
+  Smile,
+  User,
+} from "lucide-react";
+import { IoSearchOutline } from "react-icons/io5";
 
 import {
   Command,
@@ -13,29 +20,33 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@/components/ui/command"
+} from "@/components/ui/command";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogTrigger
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
-export function SearchDialog() {
-  const [open, setOpen] = React.useState(false)
+import { DialogProps } from "@radix-ui/react-dialog";
+import { useRouter } from "next/router";
+
+export function SearchDialog({ ...props }: DialogProps) {
+  const router = useRouter();
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.ctrlKey || e.metaKey)) {
-        e.preventDefault()
-        setOpen((open) => !open)
+        e.preventDefault();
+        setOpen((open) => !open);
       }
-    }
+    };
 
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
-  }, [])
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -51,7 +62,7 @@ export function SearchDialog() {
         </Button>
       </DialogTrigger>
       <DialogContent className="p-0">
-      <DialogTitle className="sr-only">Search products</DialogTitle>
+        <DialogTitle className="sr-only">Search products</DialogTitle>
         <Command>
           <CommandInput placeholder="Type a command or search..." />
           <CommandList>
@@ -92,6 +103,5 @@ export function SearchDialog() {
         </Command>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
-

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { ProductProps } from "@/components/helpers/interfaces/products";
+import { ProductProps } from "../../../../helpers/interfaces/products";
 import QuantitySelector from "@/components/shared/quantity-selector";
 import { Button } from "@/components/ui/button";
 import { Heart, Star } from "lucide-react";
