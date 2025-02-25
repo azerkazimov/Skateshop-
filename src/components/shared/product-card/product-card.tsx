@@ -9,15 +9,32 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { ProductProps } from "../../../helpers/interfaces/products";
+import { ProductProps, SubProductProps } from "../../../helpers/interfaces/products";
 import { CategoryProps } from "../../../helpers/interfaces/categories";
 import { usePathname } from "next/navigation";
+import { useProductStore } from "@/store";
 
-type ProductCardProps = { product: ProductProps | CategoryProps };
+type ProductCardProps = { product: ProductProps | CategoryProps | SubProductProps };
 
 export function ProductCard({ product }: ProductCardProps) {
   const pathname = usePathname();
   const isDocs = pathname.startsWith("/docs");
+
+  const { setProducts } = useProductStore();
+
+  const addToCart = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    product: ProductProps
+  ) => {
+    event.preventDefault();
+    setProducts((prev) => {
+      const current = prev.find((p) => p.id === product.id);
+      if (!current) {
+        return [...prev, product];
+      }
+      return prev;
+    });
+  };
 
   return (
     <Card className="rounded-lg border-0 bg-zinc-900">
@@ -53,7 +70,10 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
       </CardContent>
       <CardFooter className="p-4 pt-0 flex gap-2">
-        <Button className="flex-1 bg-white text-black hover:bg-zinc-200">
+        <Button
+          className="flex-1 bg-white text-black hover:bg-zinc-200"
+          onClick={(event) => addToCart(event, product as ProductProps)}
+        >
           {isDocs ? "View products" : "Add to card"}
         </Button>
         {!isDocs && (

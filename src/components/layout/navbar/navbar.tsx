@@ -1,6 +1,8 @@
 import Link from "next/link";
 import * as React from "react";
 
+import NavMenuItem from "@/components/shared/nav-item";
+import ProfileButton from "@/components/shared/profile-button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,13 +11,13 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+
 import { cn } from "@/lib/utils";
+
+import { NavBarProps } from "../../../helpers/interfaces/navbar";
+
 import { SearchDialog } from "../../shared/search-dialog/search-dialog";
 import { Sidebar } from "../../shared/sidebar/sidebar";
-import { Button } from "@/components/ui/button";
-import { NavBarProps } from "../../../helpers/interfaces/navbar";
-import NavMenuItem from "@/components/shared/nav-item";
-// import { products } from "@/data/products";
 
 export default async function NavBar() {
   const response = await fetch(`${process.env.API_HOST}/products`);
@@ -75,9 +77,7 @@ export default async function NavBar() {
         <div className="flex items-center gap-4">
           <SearchDialog />
           <Sidebar />
-          <Button>
-            <Link href="/auth/signin">Sign In</Link>
-          </Button>
+          <ProfileButton />
         </div>
       </div>
     </div>
